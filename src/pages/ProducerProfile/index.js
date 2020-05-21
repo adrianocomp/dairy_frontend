@@ -62,10 +62,10 @@ export default function ProducerProfile(){
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <Link type="button" class="nav-link" to="/help">Ajuda</Link>
+                                <Link type="button" class="nav-link" to="/help">AJUDA</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link type="button" class="nav-link" to="/">Logout</Link>
+                                <Link type="button" class="nav-link" to="/">LOGOUT</Link>
                             </li>
                         </ul>
                     </div>

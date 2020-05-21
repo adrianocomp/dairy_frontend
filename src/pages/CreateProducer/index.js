@@ -99,19 +99,19 @@ export default function CreateProducer(){
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <Link class="nav-link ml-2 mr-2" to="/dairy/add">Cadastrar Laticínio<span class="sr-only">(current)</span></Link>
+                                <Link class="nav-link" to="/dairy/add">CADASTRAR LATICÍNIO<span class="sr-only">(current)</span></Link>
                             </li>
                             <li class="nav-item active">
-                                <Link class="nav-link ml-2 mr-2" to="/producer/add">Cadastrar Produtor</Link>
+                                <Link class="nav-link" to="/producer/add">CADASTRAR PRODUTOR</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link class="nav-link ml-2 mr-2" to="/teste/add">Cadastrar Teste do Leite</Link>
+                                <Link class="nav-link" to="/teste/add">CADASTRAR TESTE DO LEITE</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link type="button" class="nav-link ml-2 mr-2" to="/help">Ajuda</Link>
+                                <Link type="button" class="nav-link" to="/help">AJUDA</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link type="button" class="nav-link ml-2 mr-2" onClick={()=> {handleLogout()}}>Logout</Link>
+                                <Link type="button" class="nav-link" onClick={()=> {handleLogout()}}>LOGOUT</Link>
                             </li>
                         </ul>
                     </div>
