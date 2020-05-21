@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
-import {FiArrowLeft} from 'react-icons/fi';
+import {useHistory} from 'react-router-dom';
 
 import api from '../../services/Api';
 import './styles.css';
@@ -29,7 +28,7 @@ export default function CreateUser(){
             email,
         };
         try{
-            const response = await api.post('users/create', data);
+            await api.post('users/create', data);
 
             alert('Usuário cadastrado com sucesso!');
 

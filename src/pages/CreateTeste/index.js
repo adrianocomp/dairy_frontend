@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {FiArrowLeft} from 'react-icons/fi';
 
 import api from '../../services/Api';
 import './styles.css';
@@ -45,7 +44,7 @@ export default function CreateTeste(){
                 temp,
                 alizarol,
             };
-            console.log(data.name, data.date, data.time, data.cpp, data.ccs, data.temp, data.alizarol);
+            
             try{
                 const response = await api.post('testes/create', data, {
                     headers: {
@@ -62,6 +61,11 @@ export default function CreateTeste(){
         insertTeste();
     }
     
+    function handleLogout(){
+        localStorage.clear();
+        history.push('/');
+    }
+
     return (
         <div>
         <div>  
@@ -79,13 +83,13 @@ export default function CreateTeste(){
                                 <Link class="nav-link" to="/producer/add">Cadastrar Produtor</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link class="nav-link" to="/teste/add">Cadastrar Teste de Leite</Link>
+                                <Link class="nav-link" to="/teste/add">Cadastrar Teste do Leite</Link>
                             </li>
                             <li class="nav-item active">
                                 <Link type="button" class="nav-link" to="/help">Ajuda</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link type="button" class="nav-link" to="/">Logout</Link>
+                                <Link type="button" class="nav-link" onClick={()=> {handleLogout()}}>Logout</Link>
                             </li>
                         </ul>
                     </div>
@@ -93,17 +97,18 @@ export default function CreateTeste(){
                 </div>
         <div className="container-fluid d-flex align-items-center justify-content-center">   
             <div className="d-flex flex-column align-items-center justify-content-center">
-                <h3>Cadastro do Teste</h3>
+                <h3 class="mt-5">Cadastro do Teste</h3>
 
-                <form class="needs-validation" novalidate onSubmit={handleRegister}>
-                    <div class="form-group mb-3">
+                <form class="needs-validation border rounded shadow pl-3 pr-3 pt-3 pb-3 mt-4" novalidate onSubmit={handleRegister}>
+                    <div class="row">
+                    <div class=" col-sm form-group mb-3">
                         <label for="select1">Produtor</label>                 
                         <select required className = "custom-select" id="select1" value={name} onChange={e=> setName(e.target.value)}>
                                 <option disabled="" value="">Selecione o Produtor</option>
                                 {producers.map(producer => (<option key={producer._id} value={producer.name}>{producer.name}</option>))}
                         </select>
                     </div>
-                    <div class="form-group mb-3">
+                    <div class="col-sm form-group mb-3">
                     <label>Data</label>    
                     <input
                         required
@@ -114,7 +119,9 @@ export default function CreateTeste(){
                         onChange={e=> setDate(e.target.value)}
                     />
                     </div>
-                    <div class="form-group mb-3">
+                    </div>
+                    <div class="row">
+                    <div class="col-sm form-group mb-3">
                     <label>Hora</label>    
                     <input
                         required
@@ -125,7 +132,7 @@ export default function CreateTeste(){
                         onChange={e=> setTime(e.target.value)}
                     />
                     </div>
-                    <div class="form-group mb-3">
+                    <div class="col-sm form-group mb-3">
                     <label>CPP</label>
                     <input
                         
@@ -138,7 +145,9 @@ export default function CreateTeste(){
                         onChange={e=> setCPP(e.target.value)}
                     />
                     </div>
-                    <div class="form-group mb-3">
+                    </div>
+                    <div class="row">
+                    <div class="col-sm form-group mb-3">
                     <label>CCS</label>
                     <input
                         class="form-control"
@@ -150,7 +159,7 @@ export default function CreateTeste(){
                         onChange={e=> setCCS(e.target.value)}
                     />
                     </div>
-                    <div class="form-group mb-3">
+                    <div class="col-sm form-group mb-3">
                     <label>Temperatura</label>   
                     <input
                         class="form-control"
@@ -159,6 +168,7 @@ export default function CreateTeste(){
                         value={temp}
                         onChange={e=> setTemp(e.target.value)}
                     />
+                    </div>
                     </div>
                     <div>
                     <label>Alizarol</label>
@@ -172,11 +182,11 @@ export default function CreateTeste(){
                     </div>
                     <p></p>
                     </div>
-                    <div className="d-flex flex-column justify-content-center">
+                    <div className="d-flex justify-content-center">
                         <button className="btn btn-primary" type="submit">Cadastrar</button>
                     </div>
                 </form>
-                <div className="d-flex flex-column justify-content-center">
+                <div className="d-flex justify-content-center">
                 <Link className="btn btn-link" to="/Profiles">Voltar para listagem dos testes</Link>
                 </div>
             </div>

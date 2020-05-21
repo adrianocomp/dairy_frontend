@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {FiArrowLeft} from 'react-icons/fi';
+
 
 import api from '../../services/Api';
 import './styles.css';
@@ -29,7 +29,7 @@ export default function CreateDairy(){
         };
         console.log(data.name, data.address, data.telephone, data.email);
         try{
-            const response = await api.post('dairys/create', data, {
+            await api.post('dairys/create', data, {
                 headers: {
                     Authorization: UserId,
                 }});
@@ -40,6 +40,11 @@ export default function CreateDairy(){
         } catch(err){
             alert('Erro no cadastro, tente novamente');
         }
+    }
+
+    function handleLogout(){
+        localStorage.clear();
+        history.push('/');
     }
     
     return (
@@ -59,13 +64,13 @@ export default function CreateDairy(){
                                 <Link class="nav-link" to="/producer/add">Cadastrar Produtor</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link class="nav-link" to="/teste/add">Cadastrar Teste de Leite</Link>
+                                <Link class="nav-link" to="/teste/add">Cadastrar Teste do Leite</Link>
                             </li>
                             <li class="nav-item active">
                                 <Link type="button" class="nav-link" to="/help">Ajuda</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link type="button" class="nav-link" to="/">Logout</Link>
+                                <Link type="button" class="nav-link" onClick={()=> {handleLogout()}}>Logout</Link>
                             </li>
                         </ul>
                     </div>
@@ -73,9 +78,11 @@ export default function CreateDairy(){
                 </div>
         <div className="container-fluid d-flex flex-column align-items-center justify-content-center">   
             <div className="d-flex flex-column align-items-center justify-content-center">   
-                <h3>Cadastro do Laticínio</h3>
-                <form onSubmit={handleRegister}>
-                    <div class="form-group mb-3">
+                
+                <h3 class="mt-5">Cadastro do Laticínio</h3>
+                <form class="border rounded shadow pl-3 pr-3 pb-3 pt-3 mt-4"onSubmit={handleRegister}>
+                    <div class="row">
+                    <div class="col-sm form-group mb-3">
                     <input
                         required
                         class = "form-control"
@@ -84,7 +91,7 @@ export default function CreateDairy(){
                         onChange={e=> setName(e.target.value)}
                     />
                     </div>
-                    <div class="form-group mb-3">
+                    <div class="col-sm form-group mb-3">
                     <input
                         required
                         class = "form-control"
@@ -93,7 +100,9 @@ export default function CreateDairy(){
                         onChange={e=> setAddress(e.target.value)}
                     />
                     </div>
-                    <div class="form-group mb-3">
+                    </div>
+                    <div class="row">
+                    <div class="col-sm form-group mb-3">
                     <input
                         required
                         class = "form-control"
@@ -102,7 +111,7 @@ export default function CreateDairy(){
                         onChange={e=> setTelephone(e.target.value)}
                     />
                     </div>
-                    <div class="form-group mb-3">
+                    <div class="col-sm form-group mb-3">
                     <input
                         required
                         class = "form-control"
@@ -112,7 +121,8 @@ export default function CreateDairy(){
                         onChange={e=> setEmail(e.target.value)}
                     />
                     </div>
-                    <div class="d-flex flex-column justify-content-center">
+                    </div>
+                    <div class="d-flex justify-content-center">
                     <button className="btn btn-primary" type="submit">Cadastrar</button>
                     </div>
                 </form>

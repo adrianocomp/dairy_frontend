@@ -33,7 +33,7 @@ export default function CreateProducer(){
             telephone,
         };
         try{
-            const response = await api.post('producers/create', data, {
+            await api.post('producers/create', data, {
                 headers: {
                     Authorization: UserId,
                 }});
@@ -83,7 +83,11 @@ export default function CreateProducer(){
             alert('Erro ao deleter caso, tente novamente');
         }
     }
-
+    function handleLogout(){
+        localStorage.clear();
+        history.push('/');
+    }
+    
     return (
         <div> 
             <div>  
@@ -95,19 +99,19 @@ export default function CreateProducer(){
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <Link class="nav-link" to="/dairy/add">Cadastrar Laticínio<span class="sr-only">(current)</span></Link>
+                                <Link class="nav-link ml-2 mr-2" to="/dairy/add">Cadastrar Laticínio<span class="sr-only">(current)</span></Link>
                             </li>
                             <li class="nav-item active">
-                                <Link class="nav-link" to="/producer/add">Cadastrar Produtor</Link>
+                                <Link class="nav-link ml-2 mr-2" to="/producer/add">Cadastrar Produtor</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link class="nav-link" to="/teste/add">Cadastrar Teste de Leite</Link>
+                                <Link class="nav-link ml-2 mr-2" to="/teste/add">Cadastrar Teste do Leite</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link type="button" class="nav-link" to="/help">Ajuda</Link>
+                                <Link type="button" class="nav-link ml-2 mr-2" to="/help">Ajuda</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link type="button" class="nav-link" to="/">Logout</Link>
+                                <Link type="button" class="nav-link ml-2 mr-2" onClick={()=> {handleLogout()}}>Logout</Link>
                             </li>
                         </ul>
                     </div>
@@ -116,10 +120,10 @@ export default function CreateProducer(){
         <div className="container-fluid d-flex flex-column align-items-center justify-content-center">   
             <div className="d-flex flex-column align-items-center justify-content-center">
             
-            <p></p>
-                    <h3>Cadastro do Produtor</h3>                
-                    <form onSubmit={handleRegister}>
-                        <div class="form-group mb-3">   
+                    <h3 class="mt-2">Cadastro do Produtor</h3>                
+                    <form class="border rounded shadow pl-3 pr-3 pt-3 pb-3" onSubmit={handleRegister}>
+                        <div class="row">
+                        <div class="col-sm form-group mb-3">   
                             <input
                                 required
                                 class="form-control"
@@ -128,7 +132,7 @@ export default function CreateProducer(){
                                 onChange={e=> setName(e.target.value)}
                             />
                         </div>
-                        <div class="form-group mb-3">   
+                        <div class="col-sm form-group mb-3">   
                             <input
                                 required
                                 class="form-control"
@@ -137,7 +141,9 @@ export default function CreateProducer(){
                                 onChange={e=> setLogin(e.target.value)}
                             />
                         </div>
-                        <div class="form-group mb-3">
+                        </div>
+                        <div class="row">
+                        <div class="col-sm form-group mb-3">
                             <input
                                 required
                                 class="form-control"
@@ -146,7 +152,7 @@ export default function CreateProducer(){
                                 onChange={e=> setAddress(e.target.value)}
                             />
                         </div>
-                        <div class="form-group mb-3">
+                        <div class="col-sm form-group mb-3">
                             <input
                                 required
                                 class="form-control"
@@ -155,16 +161,18 @@ export default function CreateProducer(){
                                 onChange={e=> setTelephone(e.target.value)}
                             />                      
                         </div>
-                        <div class="d-flex flex-column justify-content-center">
+                        </div>
+                        <div class="d-flex justify-content-center">
                     <button className="btn btn-primary" type="submit">Cadastrar</button>
                         </div>
                 </form>
+                
                 <div className="d-flex flex-column justify-content-center">
                 <Link className="btn btn-link" to="/Profiles">Voltar para listagem dos testes</Link>
                 </div>
                 <p></p>
                 <h3>Produtores Cadastrados</h3>
-                <div className="border rounded shadow pt-3 pl-3 pr-3">
+                <div className="border rounded shadow pt-3 pl-3 pr-3 pb-3">
                 <table className="table table-striped">
                     <thead className="thead-light text-center">
                         <tr>

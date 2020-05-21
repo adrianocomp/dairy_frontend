@@ -16,6 +16,29 @@ export default function Profiles(){
     const UserId = localStorage.getItem('userId');
     const UserName = localStorage.getItem('userName');
 
+
+    //variables for Teste Edit
+
+    const [name, setName] = useState('');
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const [cpp, setCPP] = useState('');
+    const [ccs, setCCS] = useState('');
+    const [temp, setTemp] = useState('');
+    const [alizarol, setAlizarol] = useState('');
+    
+    const [producers, setProducers] = useState([]);
+
+    useEffect(() => {
+        api.get('producers/index', {
+            headers: {
+                Authorization: UserId,
+            }
+        }).then(response => {
+            setProducers(response.data);
+        })
+    }, [producers]);
+
     //variables for pagination
     
     const [currentPage, setCurrentPage] = useState(1);
@@ -38,6 +61,7 @@ export default function Profiles(){
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentTestes = testes.slice(indexOfFirstPost, indexOfLastPost);
 
+
     // Change page
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
@@ -47,8 +71,38 @@ export default function Profiles(){
       pageNumbers.push(i);
     }
 
+    const [testemodal, setTesteModal] = useState([]);
+
+    function handleFillModal(id){
+        
+        setTesteModal(testes.filter(teste => teste._id === id));
+        
+    }
+    const dataTeste = {
+        name,
+        date,
+        time,
+        cpp,
+        ccs,
+        temp,
+        alizarol,
+    };
+    async function handleUpdateTeste(id){
+        try{
+            await api.post(`testes/update/${id}`, dataTeste, {
+                headers: {
+                    Authorization: UserId,
+                }
+            });
+            alert('Teste atualizado com sucesso!');
+            history.push('/profiles');
+        }catch(err){
+            alert('Erro ao atualizar teste, tente novamente');
+        }
+    }
+
     async function handleDeleteTeste(id){
-        console.log(id);
+        
         try{
             await api.delete(`testes/delete/${id}`, {
                 headers: {
@@ -61,7 +115,7 @@ export default function Profiles(){
         }
     }
 
-    
+       
     function handleLogout(){
         localStorage.clear();
         history.push('/');
@@ -87,13 +141,13 @@ export default function Profiles(){
                                 <Link class="nav-link" to="/producer/add">Cadastrar Produtor</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link class="nav-link" to="/teste/add">Cadastrar Teste de Leite</Link>
+                                <Link class="nav-link" to="/teste/add">Cadastrar Teste do Leite</Link>
                             </li>
                             <li class="nav-item active">
                                 <Link type="button" class="nav-link" to="/help">Ajuda</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link type="button" class="nav-link" to="/">Logout</Link>
+                                <Link type="button" class="nav-link" onClick={()=> {handleLogout()}}>Logout</Link>
                             </li>
                         </ul>
                     </div>
@@ -128,7 +182,7 @@ export default function Profiles(){
                                 <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}>{teste.ccs}{"  CCS/mL"}</td>
                                 <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}>{teste.temp}{"ºC"}</td>
                                 <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}>{teste.alizarol}</td>
-                                <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}> <Link to="/teste/add"><TiPencil size={20} color="e63946"/></Link><span> </span><Link className="flex-row" onClick={() => {handleDeleteTeste(teste._id)}}><FiTrash2 size={20} color="e63946"/> </Link> </td>
+                                <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}> <Link data-toggle="modal" data-target="#EditModalCenter" onClick={() => {handleFillModal(teste._id)}}><TiPencil size={20} color="e63946"/></Link><span> </span><Link className="flex-row" onClick={() => {handleDeleteTeste(teste._id)}}><FiTrash2 size={20} color="e63946"/> </Link> </td>
                             </tbody>
                         ))}
                 </table>
@@ -148,7 +202,120 @@ export default function Profiles(){
                     </ul>
                 </nav>
             </div>
-            </div>   
+           
+            
+            <div class="modal fade" id="EditModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Editar Teste do Leite</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {/*default value on those inputs for enable editing. */}
+                    
+                    <div class="modal-body">
+                    {testemodal.map(teste => ( 
+                    <form class="needs-validation" novalidate key={teste.id}>
+                    <div class="row">
+                    <div class="col-sm form-group mb-3">
+                        <label for="select1">Produtor</label>                 
+                        <select required className = "custom-select" id="select1" value={name} onChange={e=> setName(e.target.value)}>
+                                <option disabled="" value="">Selecione o Produtor</option>
+                                
+                                {producers.map(producer => (<option key={producer._id} defaultValue={producer.name}>{producer.name}</option>))}
+                        </select>
+                    </div>
+                    <div class="col-sm form-group mb-3">
+                    <label>Data</label>    
+                    <input
+                        required
+                        type="date"
+                        class="form-control"
+                        placeholder="Data do Teste"
+                        defaultValue={new Intl.DateTimeFormat("pt-BR").format(new Date(teste.date.replace(/-/g, '\/').replace(/T.+/, '')))}
+                        onChange={e=> setDate(e.target.value)}
+                    />
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-sm form-group mb-3">
+                    <label>Hora</label>    
+                    <input
+                        required
+                        type="time"
+                        class="form-control"
+                        placeholder="Hora do Teste"
+                        defaultValue={teste.time}
+                        onChange={e=> setTime(e.target.value)}
+                    />
+                    </div>
+                    <div class="col-sm form-group mb-3">
+                    <label>CPP</label>
+                    <input
+                        type="number"
+                        pattern=".{6,6}"
+                        min="0"
+                        class="form-control" 
+                        placeholder="CPP: até 300.000 UFC/mL"
+                        defaultValue={teste.cpp}
+                        onChange={e=> setCPP(e.target.value)}
+                    />
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-sm form-group mb-3">
+                    <label>CCS</label>
+                    <input
+                        class="form-control"
+                        type="number"
+                        pattern=".{6,6}"
+                        min="0"
+                        placeholder="CSS: até 500.000 CCS/mL"
+                        defaultValue={teste.ccs}
+                        onChange={e=> setCCS(e.target.value)}
+                    />
+                    </div>
+                    <div class="col-sm form-group mb-3">
+                    <label>Temperatura</label>   
+                    <input
+                        class="form-control"
+                        type="number"
+                        placeholder="Temperatura"
+                        defaultValue={teste.temp}
+                        onChange={e=> setTemp(e.target.value)}
+                    />
+                    </div>
+                    </div>
+                    <div>
+                    <label>Alizarol</label>
+                    <div class="custom-control custom-radio">
+                        <input required type="radio" id="conforme" name="radiobutton" class="custom-control-input" defaultValue={teste.alizarol} onChange={e=> setAlizarol("Conforme")}/>
+                        <label class="custom-control-label" for="conforme">Conforme</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input required type="radio" id="naoconforme" name="radiobutton" class="custom-control-input" defaultValue={teste.alizarol} onChange={e=> setAlizarol("Não conforme")}/>
+                        <label class="custom-control-label" for="naoconforme">Não Conforme</label>
+                    </div>
+                    </div>
+                    <div class="row d-flex justify-content-end mr-2">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" onClick={() => {handleUpdateTeste(teste._id)}} data-dismiss="modal">Salvar Alterações</button>
+                    </div>
+                    
+                </form>
+                    ))}
+                    </div>
+                    
+                   
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>   
     );
 
 }
