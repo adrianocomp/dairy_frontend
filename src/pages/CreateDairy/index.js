@@ -67,7 +67,7 @@ export default function CreateDairy(){
                                 <Link class="nav-link" to="/teste/add">CADASTRAR TESTE DO LEITE</Link>
                             </li>
                             <li class="nav-item active">
-                                <Link type="button" class="nav-link" to="/help">AJUDA</Link>
+                                <Link type="button" class="nav-link" to="/helpDairy">AJUDA</Link>
                             </li>
                             <li class="nav-item active">
                                 <Link type="button" class="nav-link" onClick={()=> {handleLogout()}}>LOGOUT</Link>

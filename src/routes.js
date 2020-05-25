@@ -10,7 +10,8 @@ import CreateDairy from './pages/CreateDairy';
 import CreateProducer from './pages/CreateProducer';
 import CreateTeste from './pages/CreateTeste';
 import About from './pages/About';
-import Help from './pages/Help';
+import HelpDairy from './pages/HelpDairy';
+import HelpProducer from './pages/HelpProducer';
 import ProducerLogin from './pages/ProducerLogin';
 import ProducerProfile from './pages/ProducerProfile';
 
@@ -27,7 +28,8 @@ export default function Routes(){
                 <Route path="/about" component = {About}/>
                 <Route path="/producerlogin" component = {ProducerLogin}/>
                 <Route path="/producer/profiles" component = {ProducerProfile}/>
-                <Route path="/help" component = {Help}/>
+                <Route path="/helpDairy" component = {HelpDairy}/>
+                <Route path="/helpProducer" component = {HelpProducer}/>
             </Switch>
         </BrowserRouter>
     );
