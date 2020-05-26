@@ -123,6 +123,8 @@ export default function Profiles(){
 
     const tempthreshold = 4;
     const isalizarol = "Conforme";
+    const cpplimit = 300000;
+    const ccslimit = 500000;
     
     return(
         <div>
@@ -174,15 +176,15 @@ export default function Profiles(){
                     </thead>
                         {currentTestes.map(teste => (
                             <tbody className="text-center" key={teste.id} >
-                                <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}>{teste.name}</td>
+                                <td>{teste.name}</td>
                                 {/*<!-- replace para corrigir o problema da formatação da hora -->*/}
-                                <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}>{new Intl.DateTimeFormat("pt-BR").format(new Date(teste.date.replace(/-/g, '\/').replace(/T.+/, '')))}</td>
-                                <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}>{teste.time}</td>
-                                <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}>{teste.cpp}{"  UFC/mL"}</td>
-                                <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}>{teste.ccs}{"  CCS/mL"}</td>
+                                <td>{new Intl.DateTimeFormat("pt-BR").format(new Date(teste.date.replace(/-/g, '\/').replace(/T.+/, '')))}</td>
+                                <td>{teste.time}</td>
+                                <td style={{backgroundColor: cpplimit >= teste.cpp ? "white" : "#e6b2b2" }}>{teste.cpp}{"  UFC/mL"}</td>
+                                <td style={{backgroundColor: ccslimit >= teste.ccs ? "white" : "#e6b2b2" }}>{teste.ccs}{"  CCS/mL"}</td>
                                 <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}>{teste.temp}{"ºC"}</td>
-                                <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}>{teste.alizarol}</td>
-                                <td style={{backgroundColor: tempthreshold > teste.temp ? "white" : "#e6b2b2" }}> <Link data-toggle="modal" data-target="#EditModalCenter" onClick={() => {handleFillModal(teste._id)}}><TiPencil size={20} color="e63946"/></Link><span> </span><Link className="flex-row" onClick={() => {handleDeleteTeste(teste._id)}}><FiTrash2 size={20} color="e63946"/> </Link> </td>
+                                <td style={{backgroundColor: isalizarol == teste.alizarol ? "white" : "#e6b2b2" }}>{teste.alizarol}</td>
+                                <td> <Link data-toggle="modal" data-target="#EditModalCenter" onClick={() => {handleFillModal(teste._id)}}><TiPencil size={20} color="e63946"/></Link><span> </span><Link className="flex-row" onClick={() => {handleDeleteTeste(teste._id)}}><FiTrash2 size={20} color="e63946"/> </Link> </td>
                             </tbody>
                         ))}
                 </table>

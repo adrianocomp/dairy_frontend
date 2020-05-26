@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-
+import InputMask from 'react-input-mask';
 import api from '../../services/Api';
 import './styles.css';
  
@@ -134,27 +134,25 @@ export default function CreateTeste(){
                     </div>
                     <div class="col-sm form-group mb-3">
                     <label>CPP</label>
-                    <input
-                        
-                        type="number"
-                        pattern=".{6,6}"
-                        min="0"
+                    <InputMask
+                        minLength="6"
+                        maxLength="6"
                         class="form-control" 
                         placeholder="CPP: até 300.000 UFC/mL"
                         value={cpp}
-                        onChange={e=> setCPP(e.target.value)}
-                    />
+                        onChange={e=> setCPP(e.target.value)}>
+                    </InputMask>
                     </div>
                     </div>
                     <div class="row">
                     <div class="col-sm form-group mb-3">
                     <label>CCS</label>
-                    <input
+                    <InputMask
                         class="form-control"
-                        type="number"
-                        pattern=".{6,6}"
-                        min="0"
-                        placeholder="CSS: até 500.000 CCS/mL"
+                        
+                        minLength="6"
+                        maxLength="6" 
+                        placeholder="CCS: até 500.000 CCS/mL"
                         value={ccs}
                         onChange={e=> setCCS(e.target.value)}
                     />
