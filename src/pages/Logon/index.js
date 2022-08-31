@@ -6,7 +6,7 @@ import api from '../../services/Api';
 import './styles.css';
 
 //import DairyImg from '../../assets/dairy_farm.jpg';
-import LogoImg from '../../assets/logo_ifmg.png';
+//import LogoImg from '../../assets/logo_ifmg.png';
 
 export default function Logon(){
 
@@ -66,7 +66,6 @@ export default function Logon(){
                 <div className="card shadow p-2 animated" style={{ minWidth: '350px' }}>
 					<div className="card-body">
 						<div className="logo text-center mb-5">
-                            <img src={LogoImg} alt="IFMG" height="100px" width="px" />
                             <p></p>
                             <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'  type='text/css'></link>
                             <h2>SiGQL</h2>
@@ -99,7 +98,6 @@ export default function Logon(){
                             <div className="d-flex flex-column justify-content-center">
                                     <Link className="btn btn-link" to="/producerlogin">Produtor? Acesse aqui</Link>
                                     <Link className="btn btn-link" to="/user/add">Laticínio? Cadastre-se aqui</Link>
-                                    <Link className="btn btn-link"to="/about">Sobre o projeto</Link>    
                             </div>
                             
                     </div>           
