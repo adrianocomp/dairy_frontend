@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom';
 import api from '../../services/Api';
 
 //import DairyImg from '../../assets/dairy_farm.jpg';
-import LogoImg from '../../assets/logo_ifmg.png';
+//import LogoImg from '../../assets/logo_ifmg.png';
 
 export default function ProducerLogin(){
 
@@ -56,7 +56,7 @@ export default function ProducerLogin(){
                 <div className="card shadow p-2 animated" style={{ minWidth: '350px' }}>
 					<div className="card-body">
 						<div className="logo text-center mb-5">
-                            <img src={LogoImg} alt="IFMG" height="100px" width="px" />
+                            
                             <p></p>
                             <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'  type='text/css'></link>
                             <h2>SiGQL</h2>

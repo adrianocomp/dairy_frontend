@@ -3,10 +3,7 @@ import {useHistory} from 'react-router-dom';
 
 import api from '../../services/Api';
 import './styles.css';
-
-
-import logoImg from '../../assets/logo_ifmg.png';
-    
+  
 
 export default function CreateUser(){
     
@@ -51,7 +48,7 @@ export default function CreateUser(){
             <div className="card shadow p-2 animated" style={{ minWidth: '350px' }}>
                 <div className="card-body">
                     <div className="logo text-center mb-5">
-                        <img src={logoImg} alt="IFMG" height="100px" width="px"/>
+                        
                             <h3>SiGQL - Cadastro</h3>
                             <p>Faça seu cadastro para ter acesso ao sistema.</p>
                     </div>
